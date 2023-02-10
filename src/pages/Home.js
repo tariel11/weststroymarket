@@ -7,7 +7,7 @@ import { CATEGORY_ROUTE } from '../utils/consts';
 const Home = () => {
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
-  const categories = [{title: 'Армированная стяжка пола', slug: ''},{title: 'Декоративная штукатурка Короед', slug: ''},{title: 'Влагостойкий', slug: ''},{title: 'forth category', slug: ''},]
+  const categories = [{title: 'Армированная стяжка пола', slug: ''},{title: 'Декоративная штукатурка Короед', slug: ''},{title: 'Влагостойкий', slug: ''},{title: 'Огнеупорные', slug: ''},{title: 'Для машинного нанесения', slug: ''},{title: 'Для отделки коридора', slug: ''},{title: 'Для отделки кухни', slug: ''},]
 
   return (
     <section>
