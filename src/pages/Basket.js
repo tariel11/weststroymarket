@@ -16,8 +16,10 @@ const Basket = () => {
   const [number,setNumber] = useState(userInfo.number || '') 
   const [comment,setComment] = useState(userInfo.comment || '') 
 
+
   const handleClearBasket = () => {
-    dispatch(clearBasket())
+    let isAgree = window.confirm("Вы действительно хотите удалить все товары из корзины?");
+    isAgree && dispatch(clearBasket())
   }
 
   return (

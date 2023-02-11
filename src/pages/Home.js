@@ -7,26 +7,15 @@ import { CATEGORY_ROUTE } from '../utils/consts';
 const Home = () => {
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
-  const categories = [{title: 'Армированная стяжка пола', slug: ''},{title: 'Декоративная штукатурка Короед', slug: ''},{title: 'Влагостойкий', slug: ''},{title: 'Огнеупорные', slug: ''},{title: 'Для машинного нанесения', slug: ''},{title: 'Для отделки коридора', slug: ''},{title: 'Для отделки кухни', slug: ''},]
-
   return (
     <section>
-      <div className='w-5/6 mx-auto py-7 sm:grid grid-cols-[2.5fr,7.5fr] gap-x-5'>
+      <div className='w-5/6 mx-auto py-7 '>
 
-          {isDesktop && <CatalogBar/>}
-
-          <div>
-
-            <h1 className='text-4xl mb-10'>Каталог </h1>
+         <CatalogBar
+            state={false}
+            />
 
 
-            <ul className='flex flex-col gap-5'>
-              {categories.map(c =>
-                  <li className=' text-lg bg-slate-500 p-2 text-white cursor-pointer' key={c.title}><Link to={CATEGORY_ROUTE + `/${c.title}`} >{c.title}</Link></li>
-                )}
-            </ul>
-
-          </div>
       </div>
     </section>
   )

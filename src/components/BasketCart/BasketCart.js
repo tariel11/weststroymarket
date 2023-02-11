@@ -1,17 +1,21 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
 import useMediaQuery from '../../hooks/useMediaQuery';
 import QuantityButtons from '../UI/QuantityButtons';
 import { useDispatch } from 'react-redux';
 import { increaseProduct, decreaseProduct, removeProduct } from '../../store/slices/basket';
+import { PRODUCT_ROUTE } from '../../utils/consts';
 
 const BasketCart = ({product}) => { 
   const dispatch = useDispatch()
   const isMobile = useMediaQuery("(min-width: 375px)");
 
   const handleRemoveProduct = (product) => {
-    dispatch(removeProduct(product))
+    let isAgree = window.confirm(`Вы действительно хотите удалить ${product.title} из корзины?`);
+
+    isAgree && dispatch(removeProduct(product))
   }
 
   const handleDecreaseProduct = () => {
@@ -29,7 +33,7 @@ const BasketCart = ({product}) => {
         <img src={product.img} alt="alt" className='w-full object-contain' />
       </div>
 
-      <p className='font-medium'>{product.title}</p>
+      <p className='font-medium'> <Link to={PRODUCT_ROUTE + product.title }>{product.title}</Link> </p>
 
       <div>
         <p className="text-center mb-4">Цена: <span>{product.price}</span></p>

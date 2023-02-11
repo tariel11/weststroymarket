@@ -23,7 +23,7 @@ const AppRoutes = () => {
       <Route path={ABOUTUS_ROUTE} element={<AboutUs/>}/>
       <Route path={CONTACTS_ROUTE} element={<Contacts/>}/>
       <Route path={WISHLIST_ROUTE} element={<WishList/>}/>
-      <Route path={PRODUCT_ROUTE + '/:title'} element={<ProductPage/>}/>
+      <Route path={PRODUCT_ROUTE + ':title'} element={<ProductPage/>}/>
       <Route path='*' element={<Home/>}/>
     </Routes>
   )

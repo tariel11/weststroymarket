@@ -11,7 +11,6 @@ import { addToWishList } from '../../store/slices/wishList'
 
 const ProductCart = ( {product} ) => {
   const dispatch = useDispatch()
- 
 
   const {basket} = useSelector(state => state.basket)
   const {basketItems} = basket
@@ -28,7 +27,7 @@ const ProductCart = ( {product} ) => {
     dispatch(increaseProduct(product))
   }
 
-  const addToLikedHandler = () => {
+  const handleAddToWishList = () => {
     dispatch(addToWishList(product))
     setIsLiked(true)
   }
@@ -36,7 +35,7 @@ const ProductCart = ( {product} ) => {
   return (
     <div className="relative flex flex-col pt-5  p-3 border-[1px] hover:shadow-2xl duration-300">
 
-      <FontAwesomeIcon icon={faHeart} onClick={() => !isLiked && addToLikedHandler()} className={`absolute top-2 right-2 cursor-pointer ` + (isLiked ? ' text-red-500' : ' text-slate-400') } />
+      <FontAwesomeIcon icon={faHeart} onClick={() => !isLiked && handleAddToWishList()} className={`absolute top-2 right-2 cursor-pointer ` + (isLiked ? ' text-red-500' : ' text-slate-400') } />
 
       <div className="w-full h-1/3 mb-3">
         <Link to={PRODUCT_ROUTE + product.title} className="w-full h-full" ><img src={product.img} alt="alt" className='w-full h-full object-contain' /></Link>

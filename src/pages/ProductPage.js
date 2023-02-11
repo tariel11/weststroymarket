@@ -1,23 +1,48 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { faHeart } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import test from '../img/test.jpeg'
 import QuantityButtons from '../components/UI/QuantityButtons'
 import CatalogBar from '../components/catalogBar/CatalogBar'
 import useMediaQuery from '../hooks/useMediaQuery'
+import { useDispatch, useSelector } from 'react-redux'
+import { decreaseProduct, increaseProduct } from '../store/slices/basket'
+import {  useParams } from 'react-router-dom'
+import { addToWishList } from '../store/slices/wishList'
+import axios from '../utils/axios'
 
 const ProductPage = () => {
+  const {basket} = useSelector(state => state.basket)
+  const {basketItems} = basket
 
+  const {title} = useParams()
+  const dispatch = useDispatch()
   const isDesktop = useMediaQuery("(min-width: 768px)"); 
   const [isAdded, setIsAdded] = useState(false)
   const [isLiked, setIsLiked] = useState(false)
   const [isElem, setIsElem] = useState('product')
+  const [product, setProduct] = useState([])
+
+  useEffect(() => {
+    const fetchOneProduct = async  () => {
+      try {
+        const {data} = await axios.get(`/products/card`, {params: {title}})
+        setProduct(data)
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    fetchOneProduct()
+  }, []);
+
   
-  const addToBasketHandler = () => {
+  const handleIncreaseProduct = () => {
+    dispatch(increaseProduct(product))
     setIsAdded(true)
   }
-  const addToLikedHandler = () => {
-    setIsLiked(!isLiked)
+
+  const handleAddToWishList = () => {
+    dispatch(addToWishList(product))
+    setIsLiked(true)
   }
 
   return (
@@ -27,7 +52,7 @@ const ProductPage = () => {
       {isDesktop && <CatalogBar/>}
 
       <div>
-        <h1 className='text-2xl xs:text-4xl mb-5'>Штукатурка Гипсовая Старатели 30 кг</h1>
+        <h1 className='text-2xl xs:text-4xl mb-5'>{product.title}</h1>
 
         <div className='grid grid-cols-[auto,auto,auto,auto] text-xs border-t-2 overflow-hidden text-center'>
           <p onClick={()=>setIsElem('product')} className={`cursor-pointer border-x-2 border-b-2 bg-slate-100 p-2 ` + (isElem === 'product' ? "border-b-0 bg-white" : "")}>Товар</p>
@@ -39,16 +64,21 @@ const ProductPage = () => {
         {isElem === 'product' && 
         <div className='ss:grid grid-cols-2 md:grid-cols-[2fr,1fr] gap-5 items-center'>
           <div>
-            <img className='block mx-auto' src={test} alt="alt" />
+            <img className='block mx-auto' src={product.img} alt="alt" />
           </div>
         
           <div className="buy">
-            <p className='mb-4 font-semibold'>Цена товара 1999 P</p>
+            <p className='mb-4 font-semibold'>Цена товара {product.price} P</p>
             <button className=' w-full mb-3 p-1 bg-slate-300'>Купить в клик</button>
-            <button className=' w-full mb-3 p-1 bg-slate-300'>Добавить в отложенные <FontAwesomeIcon icon={faHeart} className={`cursor-pointer ` + (isLiked ? ' text-red-500' : ' text-slate-400') } onClick={addToLikedHandler}/></button>
-            {!isAdded 
-            ? <button className=' w-full p-1 bg-yellow-500' onClick={addToBasketHandler}>В корзину</button>
-            : <QuantityButtons/> }
+
+            {isLiked 
+            ?  <p className='text-center p-1 bg-green-500 mb-3'>Добавлено в отложенные</p>
+            : <button onClick={() => !isLiked && handleAddToWishList()}className=' w-full mb-3 p-1 bg-slate-300'>Добавить в отложенные <FontAwesomeIcon icon={faHeart} className={`cursor-pointer ` + (isLiked ? ' text-red-500' : ' text-slate-400') }/></button> }
+            
+           {isAdded 
+           ? <p className='text-center p-1 bg-green-500'>Добавлено в корзину</p>
+           : <button className=' w-full p-1 bg-yellow-500' onClick={handleIncreaseProduct}>В корзину</button> }
+              
           </div>
         </div>}
 

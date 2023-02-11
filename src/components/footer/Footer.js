@@ -1,51 +1,36 @@
-import React from 'react'
+import { faArrowRight, faClose } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ABOUTUS_ROUTE, BASKET_ROUTE, CATALOG_ROUTE, CONTACTS_ROUTE, DELIVERY_ROUTE } from '../../utils/consts'
+import { ABOUTUS_ROUTE, BASKET_ROUTE, CATALOG_ROUTE, CONTACTS_ROUTE, DELIVERY_ROUTE, HOME_ROUTE } from '../../utils/consts'
+import CatalogBar from '../catalogBar/CatalogBar'
 
 const Footer = () => {
+
+  const [info, setInfo] = useState(false)
+  const [catalog, setCatalog] = useState(false)
+
   return (
     <footer className=' bg-slate-400 mt-auto'>
-      <div className='w-5/6 mx-auto py-5 xs:grid grid-cols-2'>
+      <div className='w-5/6 mx-auto py-5 xs:grid grid-cols-2 gap-x-5'>
         <div className='mb-5'>
-          <h3 className='font-bold text-2xl text-yellow-500 mb-4'>Информация</h3>
-          <ul className='flex flex-col gap-3 text-blue-700'>
-            <li>
-              <Link to={CATALOG_ROUTE}>Каталог товаров</Link>
-            </li>
-            <li>
-              <Link to={ABOUTUS_ROUTE}>О нас</Link>
-            </li>
-            <li>
-              <Link to={DELIVERY_ROUTE}>Доставка</Link>
-            </li>
-            <li>
-              <Link to={BASKET_ROUTE}>Корзина</Link>
-            </li>
-            <li>
-              <Link to={CONTACTS_ROUTE}>Контакты</Link>
-            </li>
+          <div onClick={()=>setInfo(!info)} className='flex justify-between items-center gap-5 w-max font-bold text-2xl text-yellow-500 mb-4'><h3>Информация</h3> <FontAwesomeIcon icon={info ? faClose : faArrowRight} className='text-3xl rotate-90' /> </div>
+          <ul className={info ? 'flex flex-col gap-3 text-blue-700' : 'hidden'}>
+            <Link to={HOME_ROUTE} className='block w-full border-b-2 p-2 bg-yellow-400'>ГЛАВНАЯ</Link>
+            <Link to={DELIVERY_ROUTE} className='block w-full border-b-2 p-2 bg-yellow-400'>ДОСТАВКА</Link>
+            <Link to={CONTACTS_ROUTE} className='block w-full border-b-2 p-2 bg-yellow-400'>КОНТАКТЫ</Link>
+            <Link to={ABOUTUS_ROUTE} className='block w-full border-b-2 p-2 bg-yellow-400'>О НАС</Link>
+            <Link to={BASKET_ROUTE} className='block w-full border-b-2 p-2 bg-yellow-400'>КОРЗИНА</Link>
           </ul>
         </div>
         
         <div className='mb-5'>
-          <h3 className='font-bold text-2xl text-yellow-500 mb-4'>Каталог</h3>
-          <ul className='flex flex-col gap-3 text-blue-700'>
-            <li>
-              <Link>Сфеупщкн шеуь</Link>
-            </li>
-            <li>
-              <Link>Сфеупщкн шеуь</Link>
-            </li>
-            <li>
-              <Link>Сфеупщкн шеуь</Link>
-            </li>
-            <li>
-              <Link>Сфеупщкн шеуь</Link>
-            </li>
-            <li>
-              <Link>Сфеупщкн шеуь</Link>
-            </li>
-          </ul>
+          <div onClick={()=>setCatalog(!catalog)} className='flex justify-between items-center gap-5 w-max font-bold text-2xl text-yellow-500 mb-4'><h3>Каталог</h3> <FontAwesomeIcon icon={catalog ? faClose : faArrowRight} className='text-3xl rotate-90' /> </div>
+          <div className={catalog ? 'block' : 'hidden'}>
+            <CatalogBar
+              state={false}
+              />  
+          </div>
         </div>
 
         <div className='mb-5 flex flex-col '>

@@ -1,21 +1,23 @@
 import React from 'react'
 import CatalogItem from '../CatalogItem/CatalogItem'
+import { categories } from '../../utils/consts'
+
+const CatalogBar = ({state}) => {
 
 
-const CatalogBar = () => {
   return (
     <div className=''>
-        <ul className='  flex flex-col gap-2 shadow-sm shadow-black '>
-          <CatalogItem>СМЕСИ СТРОИТЕЛЬНЫЕ</CatalogItem> 
-          <CatalogItem>ОБЩЕСТРОЙ</CatalogItem> 
-          <CatalogItem>ИЗОЛЯЦИЯ</CatalogItem> 
-          <CatalogItem>ИНСТРУМЕНТ</CatalogItem> 
-          <CatalogItem>ПИЛОМАТЕРИАЛЫ</CatalogItem> 
-          <CatalogItem>МЕТАЛЛ</CatalogItem> 
-          <CatalogItem>ЛАКОКРАСОЧНЫЕ МАТЕРИАЛЫ</CatalogItem> 
-          <CatalogItem>ЭЛЕКТРОТОВАРЫ</CatalogItem> 
-          <CatalogItem>ИНЖЕНЕРНАЯ САНТЕХНИКА</CatalogItem> 
-          <CatalogItem>ОТДЕЛОЧНЫЕ МАТЕРИАЛЫ</CatalogItem> 
+        <ul className='relative bg-gray-800 text-white flex flex-col shadow-sm shadow-black '>
+          
+          {categories.map(category => 
+            <CatalogItem
+              key={category.title}
+              title={category.title}
+              items={category.items}
+              state={state}
+            />   
+          )}
+
         </ul>
       </div>
   )

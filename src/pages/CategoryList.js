@@ -16,7 +16,7 @@ const Category = () => {
 
   useEffect(()=> {
     dispatch(fetchCategoryProducts(category))
-  }, [])
+  }, [category])
 
   return (
     <section> 
