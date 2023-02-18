@@ -9,8 +9,7 @@ body,
 #root,
 .app {
   height: 100%;
-  /* background-color: #fff; */
-  @apply text-black bg-gradient-to-r from-sky-500 to-indigo-500;
+  @apply text-black ;
 } 
 input{outline: none;}
 .app{
