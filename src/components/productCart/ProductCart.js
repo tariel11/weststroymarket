@@ -33,11 +33,11 @@ const ProductCart = ( {product} ) => {
   }
 
   return (
-    <div className="relative flex flex-col pt-5  p-3 border-[1px] hover:shadow-2xl duration-300">
+    <div className="relative grid grid-rows-[2fr,1.1fr,auto] pt-5 min-h-[300px]  p-3 border-[1px] hover:shadow-2xl duration-300">
 
       <FontAwesomeIcon icon={faHeart} onClick={() => !isLiked && handleAddToWishList()} className={`absolute top-2 right-2 cursor-pointer ` + (isLiked ? ' text-red-500' : ' text-slate-400') } />
 
-      <div className="w-full h-1/3 mb-3">
+      <div className="w-full mb-3">
         <Link to={PRODUCT_ROUTE + product.title} className="w-full h-full" ><img src={product.img} alt="alt" className='w-full h-full object-contain' /></Link>
       </div>
 

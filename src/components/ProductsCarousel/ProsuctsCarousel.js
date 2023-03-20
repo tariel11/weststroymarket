@@ -1,15 +1,14 @@
-import React, { Component } from "react";
+import React from "react";
 import Slider from "react-slick";
 import ProductCart from "../productCart/ProductCart";
 
 const ProductsCarousel = ({products}) => {
   
     const settings = {
-      dots: true,
       infinite: true,
       speed: 500,
       autoplay: true,
-      autoplaySpeed: 3000,
+      autoplaySpeed: 5000,
       slidesToShow: 4,
       slidesToScroll: 1,
       initialSlide: 0,
@@ -19,7 +18,6 @@ const ProductsCarousel = ({products}) => {
           settings: {
             slidesToShow: 3,
             infinite: true,
-            dots: true
           }
         },
         {
@@ -29,18 +27,12 @@ const ProductsCarousel = ({products}) => {
             initialSlide: 2
           }
         },
-        {
-          breakpoint: 480,
-          settings: {
-            slidesToShow: 1,
-          }
-        }
       ]
     };
 
     return (
       <div>
-        <h2 className=" font-semibold text-xl md:text-2xl mb-5" > Рекомендуем </h2>
+        <h2 className="text-xl mb-5 sm:text-2xl md:text-3xl font-medium" > Рекомендуем </h2>
         <Slider {...settings}>
 
           {products.map(product => 

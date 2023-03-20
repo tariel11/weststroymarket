@@ -8,7 +8,9 @@ function App() {
     <BrowserRouter>
         <div className="app ">
       <Header/>
+      <section className="pt-[142px] sm:pt-[185px] md:pt-[133px]" >
           <AppRoutes/>
+      </section>
       <Footer/>
         </div>
     </BrowserRouter>
