@@ -20,8 +20,8 @@ const Home = () => {
   }, [])
 
   return (
-    <section>
-      <div className='w-5/6 mx-auto py-7 '>
+    <section className='pt-[156px] ' >
+      <div className='w-5/6 mx-auto pb-7 '>
 
         <div className='sm:grid grid-cols-[3fr,7fr] gap-x-5 mb-7'>
           {isDesktop && <CatalogBar/>}

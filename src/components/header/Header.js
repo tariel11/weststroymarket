@@ -1,78 +1,191 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faClose } from '@fortawesome/free-solid-svg-icons';
-import useMediaQuery from '../../hooks/useMediaQuery'
-import Logo from './Logo';
-import MyForm from '../UI/MyForm';
-import BasketIcon from './BasketIcon';
-import CatalogBar from '../catalogBar/CatalogBar'
-import LikeIcon from './LikeIcon';
-import MenuIcon from './MenuIcon';
-import PhoneNumber from './PhoneNumber';
-import { ABOUTUS_ROUTE, BASKET_ROUTE, CATEGORY_ROUTE, CONTACTS_ROUTE, DELIVERY_ROUTE, HOME_ROUTE } from '../../utils/consts';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import Logo from "./Logo";
+import MyForm from "../UI/MyForm";
+import basketIcon from "./../../img/icons/basket.svg";
+import userIcon from "./../../img/icons/user.svg";
+import wishListIcon from "./../../img/icons/wishList.svg";
+import burgerIcon from "./../../img/icons/burger.svg";
+import closeIcon from "./../../img/icons/close.svg";
+import {
+    BASKET_ROUTE,
+    CATALOG_ROUTE,
+    CONTACTS_ROUTE,
+    DELIVERY_ROUTE,
+    HOME_ROUTE,
+    PERSONAL_ROUTE,
+    RETURN_ROUTE,
+    SALES_ROUTE,
+    WISHLIST_ROUTE,
+} from "../../utils/consts";
+import MyButton from "../UI/MyButton";
 
 const Header = () => {
-  const [isMenuToggled, setIsMenuToggled] = useState(false);
-  const isDesktop = useMediaQuery("(min-width: 768px)"); 
+    const [activeMenu, setActiveMenu] = useState(false)
 
-  return (
-    <header className='bg-white  pt-24'>
+    if(activeMenu){
+        document.body.style.overflow = "hidden" ;
+    }else{
+        document.body.style.overflow = "auto" ;
+    }
 
-      <div className='bg-white z-10 fixed top-0 w-full px-5  grid grid-cols-[auto,1fr,auto,auto] items-center gap-x-5 py-5'>
-        <Logo/>
-        {isDesktop && <MyForm/>}
-        <PhoneNumber/>
-        <LikeIcon/>
-        <BasketIcon/>
-        {!isDesktop && <MenuIcon setIsMenuToggled={setIsMenuToggled} />}
-      </div>
+    return (
+        <header className=" fixed w-full top-0 left-0 z-50 bg-white shadow">
+              <div className="w-5/6 mx-auto py-2 hidden sm:block">
+                <ul className="flex justify-end gap-3 text-sm">
+                    <li>
+                        <Link to={PERSONAL_ROUTE}>Личный кабинет</Link>
+                    </li>
+                    <li>
+                        <Link to={WISHLIST_ROUTE}>Избранное</Link>
+                    </li>
+                    <li>
+                        <Link to={BASKET_ROUTE}>Корзина</Link>
+                    </li>
+                    <li>
+                        <Link to={CONTACTS_ROUTE}>Контакты</Link>
+                    </li>
+                    <li>
+                        <Link to={DELIVERY_ROUTE}>Доставка</Link>
+                    </li>
+                    <li>
+                        <Link to={RETURN_ROUTE}>Возврат</Link>
+                    </li>
+                    <li>
+                        <Link to={SALES_ROUTE}>Акции</Link>
+                    </li>
+                </ul>
+            </div>
+            <hr className="hidden sm:block" />
+            <div className="w-5/6 mx-auto py-3 relative grid grid-cols-[1fr,4fr,1fr] gap-3 gap-y-2  items-center sm:grid-cols-[auto,1fr,1.8fr] md:grid-cols-[auto,auto,1fr,1fr] md:gap-4 lg:grid-cols-[auto,auto,2fr,1fr]  ">
+                {/* burger */}
+                <div className="sm:hidden" onClick={() => setActiveMenu(!activeMenu)} >
+                    <button  >
+                        <img
+                            src={activeMenu ? closeIcon : burgerIcon}
+                            alt="burgerIcon"
+                            className="w-[25px] object-fill"
+                        />
+                    </button>
+                </div>
 
+                {/* logo */}
+                <div className="mx-auto" >
+                    <Logo />
+                </div>
 
-      {isDesktop && 
-      (<nav className=' flex justify-between bg-green-600 text-yellow-200 tracking-wider'>
-          <Link to={HOME_ROUTE} className='w-full p-2 text-center border-r hover:text-black duration-300 border-yellow-200'>ГЛАВНАЯ</Link>
-          <Link to={DELIVERY_ROUTE} className='w-full p-2 text-center border-r hover:text-black duration-300 border-yellow-200'>ДОСТАВКА</Link>
-          <Link to={CONTACTS_ROUTE} className='w-full p-2 text-center border-r hover:text-black duration-300 border-yellow-200'>КОНТАКТЫ</Link>
-          <Link to={ABOUTUS_ROUTE} className='w-full p-2 text-center border-r hover:text-black duration-300 border-yellow-200'>О НАС</Link>
-          <Link to={BASKET_ROUTE} className='w-full p-2 text-center border-r hover:text-black duration-300 '>КОРЗИНА</Link>
-      </nav>)}
+                {/* catalog */}
+                <div className="hidden sm:flex gap-2 bg-yellow-300 text-lg py-3 px-5 ">
+                    <img src={burgerIcon} alt="burgerIcon" />
+                    <Link to={CATALOG_ROUTE}>Каталог</Link>
+                </div>
 
-     {!isDesktop && 
-      (<div className={`z-20 absolute top-0  bg-slate-400 w-full h-full p-5 flex duration-700 flex-col gap-5 text-black ` + (isMenuToggled ? " right-0" : "-right-[100%] hidden")}>
-        <FontAwesomeIcon icon={faClose} className='absolute top-5 right-5 text-4xl ml-auto' onClick={()=>setIsMenuToggled(false)}></FontAwesomeIcon>
-        <div className='flex flex-col gap-1'> 
-          <h2 className='font-bold text-2xl'>Контакты</h2>
-          <a className='text-xl' href='tel:+79999999999'>+7 999 999 99 99</a>
-          <a href='mail:mail@mail.com'>mail@mail.com</a>
-        </div>
+                <div className="hidden md:block ">
+                    <MyForm />
+                </div>
 
-        <div>
-          <h2 className='text-xl mb-2'>Навинация</h2>
-          <ul className='flex flex-col text-base '>
-            <Link to={HOME_ROUTE} className='block w-full border-b-2 p-2 bg-yellow-400'>ГЛАВНАЯ</Link>
-            <Link to={DELIVERY_ROUTE} className='block w-full border-b-2 p-2 bg-yellow-400'>ДОСТАВКА</Link>
-            <Link to={CONTACTS_ROUTE} className='block w-full border-b-2 p-2 bg-yellow-400'>КОНТАКТЫ</Link>
-            <Link to={ABOUTUS_ROUTE} className='block w-full border-b-2 p-2 bg-yellow-400'>О НАС</Link>
-            <Link to={BASKET_ROUTE} className='block w-full border-b-2 p-2 bg-yellow-400'>КОРЗИНА</Link>
-          </ul>
-        </div>
+                {/* icons */}
+                <ul className="flex items-center justify-end text-sm sm:justify-between">
+                    <li className="hidden sm:block">
+                        <Link
+                            to={PERSONAL_ROUTE}
+                            className="flex flex-col items-center"
+                        >
+                            <div>
+                                <img
+                                    src={userIcon}
+                                    alt="Профиль"
+                                    className="w-[25px] object-fill"
+                                />
+                            </div>
+                            <p className="hidden sm:block">Профиль</p>
+                        </Link>
+                    </li>
+                    <li className="hidden sm:block">
+                        <Link
+                            to={WISHLIST_ROUTE}
+                            className="flex flex-col items-center"
+                        >
+                            <div>
+                                <img
+                                    src={wishListIcon}
+                                    alt="Избранные"
+                                    className="w-[25px] object-fill"
+                                />
+                            </div>
+                            <p className="hidden sm:block">Избранные</p>
+                        </Link>
+                    </li>
+                    <li onClick={() => setActiveMenu(false)}>
+                        <Link
+                            to={BASKET_ROUTE}
+                            className="flex flex-col items-center"
+                        >
+                            <div>
+                                <img
+                                    src={basketIcon}
+                                    alt="Корзина"
+                                    className="w-[25px] object-fill"
+                                />
+                            </div>
+                            <p className="hidden sm:block">Корзина</p>
+                        </Link>
+                    </li>
+                </ul>
 
-        <div>
-          <h2  className='text-xl mb-2' >Каталог</h2>
-          <CatalogBar
-            state={false}
-            />   
-        </div>
-      </div>)}
+                {/* search form */}
+                <div className=" col-span-full md:hidden">
+                    <MyForm />
+                </div>
 
-      <div className='w-5/6 mx-auto pb-10'>
+                <div className={"absolute w-full h-[100vh] bg-white top-[105%] duration-500 " + (activeMenu ? " left-0" : " -left-[120%] ")  } >
+                    <ul className="py-3 " >
+                        <li onClick={() => setActiveMenu(false)} >
+                            <MyButton imgUrl={burgerIcon} link={CATALOG_ROUTE} bg="yellow-300" >Каталог</MyButton>
+                        </li>
+                        <li onClick={() => setActiveMenu(false)} >
+                            <MyButton imgUrl={wishListIcon} link={WISHLIST_ROUTE} >Избранное</MyButton>
+                        </li>
+                        <li onClick={() => setActiveMenu(false)} >
+                            <MyButton imgUrl={basketIcon} link={BASKET_ROUTE} >Корзина</MyButton>
+                        </li>
+                    </ul>
+                    <hr />
+                    <ul className="py-3 flex flex-col gap-3" >
+                        <li onClick={() => setActiveMenu(false)} >
+                            <Link to={HOME_ROUTE}>Главная страница</Link>
+                        </li>
+                        <li onClick={() => setActiveMenu(false)} >
+                            <Link to={PERSONAL_ROUTE}>Личный кабинет</Link>
+                        </li>
+                        <li onClick={() => setActiveMenu(false)} >
+                            <Link to={WISHLIST_ROUTE}>Избранное</Link>
+                        </li>
+                        <li onClick={() => setActiveMenu(false)} >
+                            <Link to={BASKET_ROUTE}>Корзина</Link>
+                        </li>
+                        <li onClick={() => setActiveMenu(false)} >
+                            <Link to={CATALOG_ROUTE}>Каталог</Link>
+                        </li>
+                        <li onClick={() => setActiveMenu(false)} >
+                            <Link to={CONTACTS_ROUTE}>Контакты</Link>
+                        </li>
+                        <li onClick={() => setActiveMenu(false)} >
+                            <Link to={DELIVERY_ROUTE}>Доставка</Link>
+                        </li>
+                        <li onClick={() => setActiveMenu(false)} >
+                            <Link to={RETURN_ROUTE}>Возврат</Link>
+                        </li>
+                        <li onClick={() => setActiveMenu(false)} >
+                            <Link to={SALES_ROUTE}>Акции</Link>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+           
+          
+        </header>
+    );
+};
 
-        {!isDesktop &&<MyForm/>}
-      </div>
-
-    </header>
-  )
-}
-
-export default Header
+export default Header;

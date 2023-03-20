@@ -17,10 +17,10 @@ const Footer = () => {
     return (
         <footer className=" bg-[#30323A] text-white mt-auto">
             <div className="">
-                <div className="w-5/6 mx-auto py-5 flex flex-col md:flex-row md:justify-between">
+                <div className=" md:w-5/6 md:mx-auto py-5 flex flex-col md:flex-row md:justify-between">
                     <div className="w-5/6 mx-auto py-5 grid gap-4 sm:grid-cols-2 md:grid-cols-1">
                         <div className="">
-                            <Logo />
+                            <Logo inHeader={false} />
                         </div>
                         <div>
                             <p className="mb-2">
