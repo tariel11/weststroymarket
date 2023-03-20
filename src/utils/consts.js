@@ -8,6 +8,9 @@ export const SEARCH_ROUTE = "/search"
 export const DELIVERY_ROUTE = "/delivery"
 export const WISHLIST_ROUTE = "/wishlist"
 export const PRODUCT_ROUTE = "/product/"
+export const PERSONAL_ROUTE = "/personal"
+export const RETURN_ROUTE = "/return"
+export const SALES_ROUTE = "/sales"
 
 export const categories = [
   {
