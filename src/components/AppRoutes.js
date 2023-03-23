@@ -1,32 +1,41 @@
-import React from 'react'
-import { Route, Routes } from 'react-router-dom'
-import AboutUs from '../pages/AboutUs'
-import Basket from '../pages/Basket'
-import CategoryList from '../pages/CategoryList'
-import Contacts from '../pages/Contacts'
-import Delivery from '../pages/Delivery'
-
-import Home from '../pages/Home'
-import ProductPage from '../pages/ProductPage'
-import SearchPage from '../pages/SearchPage'
-import WishList from '../pages/WishList'
-import { ABOUTUS_ROUTE, BASKET_ROUTE, CATEGORY_ROUTE, CONTACTS_ROUTE, DELIVERY_ROUTE, HOME_ROUTE, PRODUCT_ROUTE, SEARCH_ROUTE, WISHLIST_ROUTE } from '../utils/consts'
+import React from "react";
+import { Route, Routes } from "react-router-dom";
+import BasketPage from "../pages/BasketPage";
+import CatalogPage from "../pages/CatalogPage";
+import CategoryPage from "../pages/CategoryPage";
+import ContactsPage from "../pages/ContactsPage";
+import DeliveryPage from "../pages/DeliveryPage";
+import HomePage from "../pages/HomePage";
+import ProductPage from "../pages/ProductPage";
+import SearchPage from "../pages/SearchPage";
+import WishPage from "../pages/WishPage";
+import {
+    BASKET_ROUTE,
+    CATALOG_ROUTE,
+    CATEGORY_ROUTE,
+    CONTACTS_ROUTE,
+    DELIVERY_ROUTE,
+    HOME_ROUTE,
+    PRODUCT_ROUTE,
+    SEARCH_ROUTE,
+    WISHLIST_ROUTE,
+} from "../utils/consts";
 
 const AppRoutes = () => {
-  return (
-    <Routes>
-      <Route path={HOME_ROUTE} element={<Home/>}/>
-      <Route path={CATEGORY_ROUTE  + '/:category'} element={<CategoryList/>}/>
-      <Route path={BASKET_ROUTE} element={<Basket/>}/>
-      <Route path={SEARCH_ROUTE + '/:search'} element={<SearchPage/>}/>
-      <Route path={DELIVERY_ROUTE} element={<Delivery/>}/>
-      <Route path={ABOUTUS_ROUTE} element={<AboutUs/>}/>
-      <Route path={CONTACTS_ROUTE} element={<Contacts/>}/>
-      <Route path={WISHLIST_ROUTE} element={<WishList/>}/>
-      <Route path={PRODUCT_ROUTE + ':title'} element={<ProductPage/>}/>
-      <Route path='*' element={<Home/>}/>
-    </Routes>
-  )
-}
+    return (
+        <Routes>
+            <Route path={HOME_ROUTE} element={<HomePage />} />
+            <Route path={CATALOG_ROUTE} element={<CatalogPage />} />
+            <Route path={CATEGORY_ROUTE} element={<CategoryPage />} />
+            <Route path={BASKET_ROUTE} element={<BasketPage />} />
+            <Route path={SEARCH_ROUTE} element={<SearchPage />} />
+            <Route path={WISHLIST_ROUTE} element={<WishPage />} />
+            <Route path={PRODUCT_ROUTE + ":slug"} element={<ProductPage />} />
+            <Route path={DELIVERY_ROUTE} element={<DeliveryPage />} />
+            <Route path={CONTACTS_ROUTE} element={<ContactsPage />} />
+            <Route path="*" element={<HomePage />} />
+        </Routes>
+    );
+};
 
-export default AppRoutes
+export default AppRoutes;
