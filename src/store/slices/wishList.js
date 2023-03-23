@@ -7,7 +7,7 @@ const initialState = ({
 })
 
 const wishListSlices = createSlice({
-  name: 'basket',
+  name: 'wishList',
   initialState,
   reducers: { 
     addToWishList: (state, action) => {
