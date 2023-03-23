@@ -12,7 +12,7 @@ const HomePage = () => {
     const { searchProducts } = useSelector((state) => state.products);
 
     useEffect(() => {
-        dispatch(fetchCategoryProducts({ query: "Плиты ОСБ" }));
+        dispatch(fetchCategoryProducts({ category: "Плиты ОСБ" }));
         dispatch(fetchSearchProducts({ query: "Штукатурка" }));
     }, [dispatch]);
 
